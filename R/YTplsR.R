@@ -68,7 +68,7 @@ nbcomp.bootplsR<-function(Y,X,R=500,sim="ordinary",ncpus=1,parallel="no",typeBCa
   databoot=cbind(ressimYT$RepY,compTsim)
   if(sim!="permutation"){
     sim.bootSim2<-boot::boot(data=databoot, parallel=parallel, ncpus=ncpus, statistic=coefs.plsR.CSim, sim=sim, stype="i", R=R)
-    confYT=t(as.matrix(plsRglm::confints.bootpls(sim.bootSim2,typeBCa = typeBCa)))
+    confYT=.confints.bootpls.compat(sim.bootSim2,typeBCa = typeBCa)
     
     while (confYT[1,ncolBoot]>0){
       indboot2=indboot2+1
@@ -78,13 +78,13 @@ nbcomp.bootplsR<-function(Y,X,R=500,sim="ordinary",ncpus=1,parallel="no",typeBCa
         compTsim=ressimYT$tt
         databoot=cbind(ressimYT$RepY,compTsim)
         sim.bootSim2<-boot::boot(data=databoot, parallel=parallel, ncpus=ncpus, statistic=coefs.plsR.CSim, sim=sim, stype="i", R=R)
-        confYT=t(as.matrix(plsRglm::confints.bootpls(sim.bootSim2,typeBCa = typeBCa)))
+        confYT=.confints.bootpls.compat(sim.bootSim2,typeBCa = typeBCa)
       }
       else{confYT=matrix(0,indboot2,ncolBoot+1)}
     }
   } else {
     sim.bootSim2<-boot::boot(data=databoot, parallel=parallel, ncpus=ncpus, statistic=permcoefs.plsR.CSim, sim="permutation", stype="i", R=R)
-    confYT=t(as.matrix(plsRglm::confints.bootpls(sim.bootSim2,typeBCa = typeBCa)))
+    confYT=.confints.bootpls.compat(sim.bootSim2,typeBCa = typeBCa)
     
     while (confYT[1,ncolBoot]>0){
       indboot2=indboot2+1
@@ -94,7 +94,7 @@ nbcomp.bootplsR<-function(Y,X,R=500,sim="ordinary",ncpus=1,parallel="no",typeBCa
         compTsim=ressimYT$tt
         databoot=cbind(ressimYT$RepY,compTsim)
         sim.bootSim2<-boot::boot(data=databoot, parallel=parallel, ncpus=ncpus, statistic=permcoefs.plsR.CSim, sim="permutation", stype="i", R=R)
-        confYT=t(as.matrix(plsRglm::confints.bootpls(sim.bootSim2,typeBCa = typeBCa)))
+        confYT=.confints.bootpls.compat(sim.bootSim2,typeBCa = typeBCa)
       }
       else{confYT=matrix(0,indboot2,ncolBoot+1)}
     }

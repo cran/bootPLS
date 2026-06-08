@@ -1,3 +1,8 @@
+# bootPLS 1.2.0
+
+* Update links to canonical form
+* Added compatibility guard for plsRglm bootstrap confidence interval shapes
+
 # bootPLS 1.1.0
 
 * Maintainer email update
@@ -39,4 +44,3 @@
 # bootPLS 0.0.1 
 
 * Package creation
-

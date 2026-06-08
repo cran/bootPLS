@@ -27,8 +27,8 @@ N. Meyer and F. Bertrand, (2021), Frontiers in Applied Mathematics and Statistic
 Useful links:
 \itemize{
   \item \url{https://fbertran.github.io/bootPLS/}
-  \item \url{https://github.com/fbertran/bootPLS/}
-  \item Report bugs at \url{https://github.com/fbertran/bootPLS/issues/}
+  \item \url{https://github.com/fbertran/bootPLS}
+  \item Report bugs at \url{https://github.com/fbertran/bootPLS/issues}
 }
 
 }

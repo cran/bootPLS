@@ -24,6 +24,51 @@
 #' @keywords internal
 NULL
 
+.confints.bootpls.compat <- function(bootobject, typeBCa) {
+  if (length(bootobject$t0) == 1L) {
+    return(.confints.bootpls.scalar(bootobject, typeBCa = typeBCa))
+  }
+
+  conf <- plsRglm::confints.bootpls(bootobject, typeBCa = typeBCa)
+  conf <- as.matrix(conf)
+  if (utils::packageVersion("plsRglm") < "1.7.1") {
+    return(t(conf))
+  }
+  conf
+}
+
+.confints.bootpls.scalar <- function(bootobject, typeBCa) {
+  conf <- c(
+    boot::boot.ci(bootobject, conf = 0.95, type = "norm", index = 1)$normal[, -1],
+    boot::boot.ci(bootobject, conf = 0.95, type = "basic", index = 1)$basic[, -c(1, 2, 3)],
+    boot::boot.ci(bootobject, conf = 0.95, type = "perc", index = 1)$perc[, -c(1, 2, 3)]
+  )
+  conf_names <- c("Normal.Lower", "Normal.Upper",
+                  "Basic.Lower", "Basic.Upper",
+                  "Percentile.Lower", "Percentile.Upper")
+
+  if (typeBCa) {
+    conf <- c(
+      conf,
+      boot::boot.ci(bootobject, conf = 0.95, type = "bca", index = 1)$bca[, -c(1, 2, 3)]
+    )
+    conf_names <- c(conf_names, "BCa.Lower", "BCa.Upper")
+  }
+
+  conf <- matrix(conf, nrow = 1L)
+  colnames(conf) <- conf_names
+  attr(conf, "typeBCa") <- typeBCa
+
+  predictor_names <- rownames(bootobject$t0)
+  if (is.null(predictor_names)) {
+    predictor_names <- names(bootobject$t0)
+  }
+  if (!is.null(predictor_names)) {
+    rownames(conf) <- predictor_names[1L]
+  }
+  conf
+}
+
 
 ### For spls
 ust<-function (b, eta)
@@ -455,4 +500,3 @@ sgpls.T=function (x, y, K, eta, scale.x = TRUE, eps = 1e-05, denom.eps = 1e-20,
   class(object) <- "sgpls"
   object
 }
-

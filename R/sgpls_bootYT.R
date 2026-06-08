@@ -196,7 +196,7 @@ nbcomp.bootsgpls=function (x, y, fold = 10, eta, R, scale.x = TRUE, maxnt=10, pl
     compTsim=resK$tt
     databoot=cbind(y,compTsim)
     bootcomp<-boot::boot(databoot, statistic=coefs.sgpls.CSim, nt=indK, maxcoefvalues = maxcoefvalues, ifbootfail = ifbootfail, sim="ordinary", stype="i", R=R)
-    confYT=t(as.matrix(plsRglm::confints.bootpls(bootcomp, typeBCa = typeBCa)))
+    confYT=.confints.bootpls.compat(bootcomp, typeBCa = typeBCa)
     
     while ((confYT[1,ncolBoot]>0) & (indK<maxnt+1)) {
       indK=indK+1             
@@ -208,13 +208,13 @@ nbcomp.bootsgpls=function (x, y, fold = 10, eta, R, scale.x = TRUE, maxnt=10, pl
       compTsim=resK$tt[,ind]
       databoot=cbind(y,compTsim)
       bootcomp<-boot::boot(databoot, statistic=coefs.sgpls.CSim, nt=ind, maxcoefvalues = maxcoefvalues[ind], ifbootfail = ifbootfail, sim="ordinary", stype="i", R=R)
-      confC=t(as.matrix(plsRglm::confints.bootpls(bootcomp, typeBCa = typeBCa)))
+      confC=.confints.bootpls.compat(bootcomp, typeBCa = typeBCa)
       while ((confC[1,ncolBoot]>0) & (ind<indK)){
         ind=ind+1
         compTsim=resK$tt[,1:ind]
         databoot=cbind(y,compTsim)
         bootcomp<-boot::boot(databoot, statistic=coefs.sgpls.CSim, nt=ind, maxcoefvalues = maxcoefvalues[1:ind], ifbootfail = ifbootfail, sim="ordinary", stype="i", R=R)
-        confC=t(as.matrix(plsRglm::confints.bootpls(bootcomp, typeBCa = typeBCa)))
+        confC=.confints.bootpls.compat(bootcomp, typeBCa = typeBCa)
       }
       if (ind!=indK){
         confYT=matrix(0, 1, ncolBoot+1)
@@ -359,7 +359,7 @@ nbcomp.bootsgpls.para=function (x, y, fold = 10, eta, R, scale.x = TRUE, maxnt=1
                                           compTsim=resK$tt
                                           databoot=cbind(y,compTsim)
                                           bootcomp<-boot::boot(databoot, statistic=coefs.sgpls.CSim, nt=indK, maxcoefvalues = maxcoefvalues, ifbootfail = ifbootfail, sim="ordinary", stype="i", R=R)
-                                          confYT=t(as.matrix(plsRglm::confints.bootpls(bootcomp, typeBCa = typeBCa)))
+                                          confYT=.confints.bootpls.compat(bootcomp, typeBCa = typeBCa)
                                           
                                           while ((confYT[1,ncolBoot]>0) & (indK<maxnt+1)) {
                                             indK=indK+1             
@@ -371,13 +371,13 @@ nbcomp.bootsgpls.para=function (x, y, fold = 10, eta, R, scale.x = TRUE, maxnt=1
                                             compTsim=resK$tt[,ind]
                                             databoot=cbind(y,compTsim)
                                             bootcomp<-boot::boot(databoot, statistic=coefs.sgpls.CSim, nt=ind, maxcoefvalues = maxcoefvalues[ind], ifbootfail = ifbootfail, sim="ordinary", stype="i", R=R)
-                                            confC=t(as.matrix(plsRglm::confints.bootpls(bootcomp, typeBCa = typeBCa)))
+                                            confC=.confints.bootpls.compat(bootcomp, typeBCa = typeBCa)
                                             while ((confC[1,ncolBoot]>0) & (ind<indK)){
                                               ind=ind+1
                                               compTsim=resK$tt[,1:ind]
                                               databoot=cbind(y,compTsim)
                                               bootcomp<-boot::boot(databoot, statistic=coefs.sgpls.CSim, nt=ind, maxcoefvalues = maxcoefvalues[1:ind], ifbootfail = ifbootfail, sim="ordinary", stype="i", R=R)
-                                              confC=t(as.matrix(plsRglm::confints.bootpls(bootcomp, typeBCa = typeBCa)))
+                                              confC=.confints.bootpls.compat(bootcomp, typeBCa = typeBCa)
                                             }
                                             if (ind!=indK){
                                               confYT=matrix(0, 1, ncolBoot+1)

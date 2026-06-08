@@ -1,6 +1,6 @@
 Package: bootPLS
-Version: 1.1.0
-Date: 2025-09-12
+Version: 1.2.0
+Date: 2026-06-07
 Depends: R (>= 3.5.0)
 biocViews:
 Imports: boot, doParallel, foreach, plsRglm, pls, spls, bipartite,
@@ -25,12 +25,12 @@ Encoding: UTF-8
 Classification/MSC: 62N01, 62N02, 62N03, 62N99
 LazyData: true
 VignetteBuilder: knitr
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 URL: https://fbertran.github.io/bootPLS/,
-        https://github.com/fbertran/bootPLS/
-BugReports: https://github.com/fbertran/bootPLS/issues/
+        https://github.com/fbertran/bootPLS
+BugReports: https://github.com/fbertran/bootPLS/issues
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2025-09-12 23:33:58 UTC; bertran7
+Packaged: 2026-06-08 16:29:42 UTC; bertran7
 Repository: CRAN
-Date/Publication: 2025-09-13 22:00:02 UTC
+Date/Publication: 2026-06-08 17:10:07 UTC
